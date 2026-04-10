@@ -1,0 +1,5 @@
+{
+  "name": "Zenith Events",
+  "description": "Premium minimalist event discovery app with AI-powered recommendations and B2B dashboard.",
+  "requestFramePermissions": ["geolocation"]
+}

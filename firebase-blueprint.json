@@ -1,0 +1,82 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Application user profile",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "intereses": { "type": "array", "items": { "type": "string" } },
+        "hashtags_redes": { "type": "array", "items": { "type": "string" } },
+        "ubicacion": {
+          "type": "object",
+          "properties": {
+            "lat": { "type": "number" },
+            "lng": { "type": "number" }
+          }
+        },
+        "timeSpentToday": { "type": "number" },
+        "role": { "type": "string", "enum": ["user", "business"] },
+        "savedEvents": { "type": "array", "items": { "type": "string" } },
+        "digitalHandles": {
+          "type": "object",
+          "properties": {
+            "instagram": { "type": "string" },
+            "twitter": { "type": "string" },
+            "linkedin": { "type": "string" }
+          }
+        }
+      },
+      "required": ["uid", "email"]
+    },
+    "Event": {
+      "title": "Event",
+      "description": "Event listing",
+      "type": "object",
+      "properties": {
+        "titulo": { "type": "string" },
+        "descripcion": { "type": "string" },
+        "foto_url": { "type": "string" },
+        "categoria": { "type": "string" },
+        "ubicacion_gps": {
+          "type": "object",
+          "properties": {
+            "lat": { "type": "number" },
+            "lng": { "type": "number" }
+          }
+        },
+        "aforo_max": { "type": "number" },
+        "asistentes_actuales": { "type": "array", "items": { "type": "string" } },
+        "isPremium": { "type": "boolean" },
+        "views": { "type": "number" }
+      },
+      "required": ["titulo", "categoria"]
+    },
+    "Match": {
+      "title": "Match",
+      "description": "User match for an event",
+      "type": "object",
+      "properties": {
+        "event_id": { "type": "string" },
+        "users_list": { "type": "array", "items": { "type": "string" } },
+        "chat_id": { "type": "string" }
+      },
+      "required": ["event_id", "users_list"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User profiles"
+    },
+    "/events/{eventId}": {
+      "schema": { "$ref": "#/entities/Event" },
+      "description": "Event listings"
+    },
+    "/matches/{matchId}": {
+      "schema": { "$ref": "#/entities/Match" },
+      "description": "Event matches"
+    }
+  }
+}
