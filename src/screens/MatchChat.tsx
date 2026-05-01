@@ -9,25 +9,25 @@ export const MatchChat: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white p-6 pb-32">
+    <div className="min-h-screen bg-transparent p-6 pb-32">
       <header className="mb-12">
-        <h2 className="text-3xl font-bold text-gray-900 tracking-tight">Matches</h2>
+        <h2 className="text-3xl font-extrabold text-white tracking-tight">Matches</h2>
         <p className="text-gray-400 text-sm mt-1">Conecta con otros asistentes</p>
       </header>
 
       <div className="space-y-8">
         <section>
           <div className="flex items-center gap-2 text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">
-            <Heart size={12} className="text-red-500" />
+            <Heart size={12} className="text-[#FF6B00]" />
             <span>Nuevos Matches</span>
           </div>
           <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
             {matches.map((match) => (
               <div key={match.id} className="flex-shrink-0 flex flex-col items-center gap-2">
-                <div className="w-16 h-16 rounded-full p-1 border-2 border-blue-500">
+                <div className="w-16 h-16 rounded-full p-1 border-2 border-[#FF6B00]">
                   <img src={match.image} alt={match.name} className="w-full h-full rounded-full object-cover" referrerPolicy="no-referrer" />
                 </div>
-                <span className="text-xs font-bold text-gray-900">{match.name.split(' ')[0]}</span>
+                <span className="text-xs font-bold text-white">{match.name.split(' ')[0]}</span>
               </div>
             ))}
           </div>
@@ -35,18 +35,18 @@ export const MatchChat: React.FC = () => {
 
         <section>
           <div className="flex items-center gap-2 text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">
-            <MessageSquare size={12} className="text-blue-500" />
+            <MessageSquare size={12} className="text-[#FF6B00]" />
             <span>Mensajes</span>
           </div>
           <div className="space-y-6">
             {matches.map((match) => (
               <div key={match.id} className="flex items-center gap-4 group cursor-pointer">
-                <div className="w-14 h-14 rounded-2xl overflow-hidden bg-gray-100">
+                <div className="w-14 h-14 rounded-2xl overflow-hidden bg-white/5 border border-white/10">
                   <img src={match.image} alt={match.name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                 </div>
-                <div className="flex-1 border-b border-gray-50 pb-4 group-last:border-none">
+                <div className="flex-1 border-b border-white/10 pb-4 group-last:border-none">
                   <div className="flex justify-between items-center mb-1">
-                    <h4 className="font-bold text-gray-900">{match.name}</h4>
+                    <h4 className="font-bold text-white">{match.name}</h4>
                     <div className="flex items-center gap-1 text-[10px] text-gray-400">
                       <Clock size={10} />
                       <span>{match.time}</span>

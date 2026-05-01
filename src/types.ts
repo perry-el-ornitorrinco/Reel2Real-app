@@ -1,5 +1,19 @@
 export type UserRole = 'user' | 'business';
 
+export interface DigitalHandle {
+  instagram?: string;
+  twitter?: string;
+  linkedin?: string;
+}
+
+export interface CustomReminder {
+  id: string;
+  eventId: string;
+  userUid: string;
+  remindAt: string; // ISO string
+  title: string;
+}
+
 export interface User {
   uid: string;
   email: string;
@@ -14,11 +28,11 @@ export interface User {
     categoria: string;
   };
   savedEvents?: string[];
-  digitalHandles?: {
-    instagram?: string;
-    twitter?: string;
-    linkedin?: string;
-  };
+  ods_affinity?: string[];
+}
+
+export interface UserPrivateData {
+  digitalHandles?: DigitalHandle;
 }
 
 export interface Event {
@@ -34,6 +48,8 @@ export interface Event {
   isPremium: boolean;
   views: number;
   organizador_uid?: string;
+  ticketUrl?: string; // Integration with Eventbrite/TicketMaster
+  price?: number;
   createdAt?: any;
 }
 

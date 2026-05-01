@@ -19,6 +19,15 @@
         "timeSpentToday": { "type": "number" },
         "role": { "type": "string", "enum": ["user", "business"] },
         "savedEvents": { "type": "array", "items": { "type": "string" } },
+        "ods_affinity": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["uid", "email"]
+    },
+    "UserPrivateData": {
+      "title": "UserPrivateData",
+      "description": "Isolated PII and handles",
+      "type": "object",
+      "properties": {
         "digitalHandles": {
           "type": "object",
           "properties": {
@@ -27,8 +36,19 @@
             "linkedin": { "type": "string" }
           }
         }
+      }
+    },
+    "AnonymousAnalytics": {
+      "title": "AnonymousAnalytics",
+      "description": "Telemetry to measure Time to Reality and isolation metrics.",
+      "type": "object",
+      "properties": {
+        "timeToReality": { "type": "number" },
+        "lonelinessIndex": { "type": "number" },
+        "simplifiedUI": { "type": "boolean" },
+        "timestamp": { "type": "string", "format": "date-time" }
       },
-      "required": ["uid", "email"]
+      "required": ["timeToReality", "timestamp"]
     },
     "Event": {
       "title": "Event",
@@ -49,7 +69,9 @@
         "aforo_max": { "type": "number" },
         "asistentes_actuales": { "type": "array", "items": { "type": "string" } },
         "isPremium": { "type": "boolean" },
-        "views": { "type": "number" }
+        "views": { "type": "number" },
+        "ticketUrl": { "type": "string" },
+        "price": { "type": "number" }
       },
       "required": ["titulo", "categoria"]
     },
@@ -63,12 +85,32 @@
         "chat_id": { "type": "string" }
       },
       "required": ["event_id", "users_list"]
+    },
+    "CustomReminder": {
+      "title": "CustomReminder",
+      "description": "User scheduled reminder for an event",
+      "type": "object",
+      "properties": {
+        "eventId": { "type": "string" },
+        "userUid": { "type": "string" },
+        "remindAt": { "type": "string", "format": "date-time" },
+        "title": { "type": "string" }
+      },
+      "required": ["eventId", "userUid", "remindAt"]
     }
   },
   "firestore": {
     "/users/{userId}": {
       "schema": { "$ref": "#/entities/User" },
       "description": "User profiles"
+    },
+    "/users/{userId}/private/info": {
+      "schema": { "$ref": "#/entities/UserPrivateData" },
+      "description": "Private subset of user profile"
+    },
+    "/analytics/{docId}": {
+      "schema": { "$ref": "#/entities/AnonymousAnalytics" },
+      "description": "Anonymous metrics collection"
     },
     "/events/{eventId}": {
       "schema": { "$ref": "#/entities/Event" },
@@ -77,6 +119,10 @@
     "/matches/{matchId}": {
       "schema": { "$ref": "#/entities/Match" },
       "description": "Event matches"
+    },
+    "/reminders/{reminderId}": {
+      "schema": { "$ref": "#/entities/CustomReminder" },
+      "description": "Custom user reminders"
     }
   }
 }

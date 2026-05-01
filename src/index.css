@@ -1,14 +1,68 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&family=Roboto:wght@400;500;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --shadow-premium: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+  --font-sans: "Roboto", ui-sans-serif, system-ui, sans-serif;
+  --font-headline: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-label: "Roboto", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-tertiary-container: #83c6ea;
+  --color-background: #fff3f8;
+  --color-tertiary-fixed: #83c6ea;
+  --color-tertiary: #2f7297;
+  --color-on-tertiary: #ffffff;
+  --color-on-tertiary-fixed: #001e30;
+  --color-surface-tint: #a5256a;
+  --color-surface-dim: #f3d4e3;
+  --color-error-container: #f74b6d;
+  --color-secondary-container: #eaccff;
+  --color-inverse-surface: #351c27;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface: #fff3f8;
+  --color-primary-dim: #8b1856;
+  --color-on-secondary-fixed: #270057;
+  --color-on-tertiary-container: #003258;
+  --color-on-surface: #2b141f;
+  --color-on-tertiary-fixed-variant: #004b73;
+  --color-primary-container: #ffd9e6;
+  --color-surface-container: #ffe5f0;
+  --color-error-dim: #a70138;
+  --color-on-background: #2b141f;
+  --color-surface-variant: #f3c2d4;
+  --color-on-secondary: #ffffff;
+  --color-primary: #a5256a;
+  --color-on-secondary-container: #33006a;
+  --color-on-primary: #ffffff;
+  --color-surface-container-high: #ffccd8;
+  --color-outline-variant: #d69db3;
+  --color-error: #b41340;
+  --color-on-error: #ffefef;
+  --color-secondary-fixed-dim: #cf9cff;
+  --color-outline: #94698a;
+  --color-inverse-on-surface: #f9dbe4;
+  --color-secondary: #9d43e3;
+  --color-secondary-fixed: #eaccff;
+  --color-secondary-dim: #8327cb;
+  --color-on-primary-fixed-variant: #6b0042;
+  --color-surface-container-highest: #ffb3c5;
+  --color-surface-container-low: #fff0f5;
+  --color-tertiary-dim: #13587b;
+  --color-on-error-container: #510017;
+  --color-on-secondary-fixed-variant: #5f00a5;
+  --color-on-surface-variant: #5b3f4c;
+  --color-primary-fixed: #ffd9e6;
+  --color-on-primary-fixed: #3b0022;
+  --color-tertiary-fixed-dim: #64abea;
+  --color-surface-bright: #fff3f8;
+  --color-on-primary-container: #3b0022;
+  --color-inverse-primary: #ffb1cb;
+  --color-primary-fixed-dim: #e15c92;
 }
 
 @layer base {
   body {
-    @apply bg-white text-gray-900 font-sans antialiased;
+    @apply bg-background text-on-surface font-sans antialiased overflow-x-hidden;
+    min-height: max(884px, 100dvh);
   }
 }
 
@@ -19,5 +73,35 @@
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+
+  .paper-grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    pointer-events: none;
+  }
+  .wobbly-border {
+    border-radius: 2rem 1.5rem 2.2rem 1rem;
+  }
+  .wobbly-card {
+    border-radius: 2.5rem 1.8rem 3rem 2.2rem;
+  }
+  .paper-texture {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.05;
+  }
+  .doodle-bg {
+    background-image: radial-gradient(#9720ab20 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  .sketchy-shape {
+    clip-path: polygon(2% 5%, 95% 2%, 98% 90%, 5% 98%, 0% 50%);
+  }
+  .floating-doodle {
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(5deg); }
   }
 }

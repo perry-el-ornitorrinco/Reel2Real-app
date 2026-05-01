@@ -3,7 +3,7 @@ import { db } from './firebase';
 
 const BETA_EVENTS = [
   {
-    titulo: "Zenith Secret Cinema",
+    titulo: "Reel2Real Secret Cinema",
     descripcion: "Disfruta de un clásico del cine en un loft industrial secreto. Palomitas gourmet y debate posterior con un crítico de cine.",
     foto_url: "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=800&q=80",
     categoria: "Arte",
@@ -68,7 +68,7 @@ const BETA_EVENTS = [
     createdAt: serverTimestamp()
   },
   {
-    titulo: "Torneo de Pádel Zenith",
+    titulo: "Torneo de Pádel Reel2Real",
     descripcion: "Networking y deporte. Encuentra a tu pareja de negocios ideal en la pista de pádel.",
     foto_url: "https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=800&q=80",
     categoria: "Deporte",
@@ -136,7 +136,7 @@ const BETA_EVENTS = [
 
 export const seedBetaEvents = async () => {
   // Check if they already exist to avoid duplicates
-  const q = query(collection(db, 'events'), where('titulo', '==', "Zenith Secret Cinema"), limit(1));
+  const q = query(collection(db, 'events'), where('titulo', '==', "Reel2Real Secret Cinema"), limit(1));
   const snap = await getDocs(q);
   if (!snap.empty) {
     console.log("Beta events already seeded.");

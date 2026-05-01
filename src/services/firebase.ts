@@ -9,7 +9,6 @@ console.log("Using Firestore database:", firebaseConfig.firestoreDatabaseId || "
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
-// Use initializeFirestore with long polling to ensure connection in restricted environments
 export const db = initializeFirestore(app, {
   experimentalForceLongPolling: true,
 }, firebaseConfig.firestoreDatabaseId);

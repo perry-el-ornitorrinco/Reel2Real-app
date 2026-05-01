@@ -108,7 +108,7 @@ export const NotificationCenter: React.FC = () => {
 
               <div className="p-6 bg-gray-50 text-center">
                 <p className="text-[10px] text-gray-400 font-medium">
-                  Zenith Intelligence • v1.0
+                  Reel2Real Intelligence • v1.0
                 </p>
               </div>
             </motion.div>

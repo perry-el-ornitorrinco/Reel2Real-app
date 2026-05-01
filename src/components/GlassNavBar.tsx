@@ -2,56 +2,65 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Compass, BarChart3, MessageCircle, User } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { motion } from 'framer-motion';
 
 export const GlassNavBar: React.FC = () => {
   return (
-    <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md h-16 bg-white/70 backdrop-blur-xl border border-white/20 rounded-full shadow-2xl flex items-center justify-around px-6 z-50">
+    <nav className="fixed bottom-0 left-0 w-full z-40 flex justify-around items-center px-4 md:px-8 pb-8 pt-4 bg-surface-container-lowest/80 backdrop-blur-xl border-t-2 border-dashed border-primary/20 pb-safe">
       <NavLink
         to="/"
         className={({ isActive }) =>
           cn(
-            "p-2 rounded-full transition-all duration-300",
-            isActive ? "bg-blue-500 text-white scale-110 shadow-lg" : "text-gray-400 hover:text-blue-500"
+            "flex flex-col items-center justify-center p-3 transition-all duration-300 wobbly-border",
+            isActive 
+              ? "bg-primary-container text-on-primary rounded-[2rem_1.5rem_2.2rem_1rem] shadow-[4px_4px_0_0_#9720ab] -rotate-3 scale-110" 
+              : "text-on-surface opacity-60 hover:scale-110 hover:-rotate-3 hover:opacity-100"
           )
         }
       >
-        <Compass size={24} />
+        <Compass size={28} strokeWidth={2} />
       </NavLink>
       
       <NavLink
         to="/dashboard"
         className={({ isActive }) =>
           cn(
-            "p-2 rounded-full transition-all duration-300",
-            isActive ? "bg-blue-500 text-white scale-110 shadow-lg" : "text-gray-400 hover:text-blue-500"
+            "flex flex-col items-center justify-center p-3 transition-all duration-300 wobbly-border",
+            isActive 
+              ? "bg-primary-container text-on-primary rounded-[1.5rem_2rem_1rem_2.2rem] shadow-[4px_4px_0_0_#9720ab] rotate-3 scale-110" 
+              : "text-on-surface opacity-60 hover:scale-110 hover:-rotate-3 hover:opacity-100"
           )
         }
       >
-        <BarChart3 size={24} />
+        <BarChart3 size={28} strokeWidth={2} />
       </NavLink>
       
       <NavLink
         to="/matches"
         className={({ isActive }) =>
           cn(
-            "p-2 rounded-full transition-all duration-300",
-            isActive ? "bg-blue-500 text-white scale-110 shadow-lg" : "text-gray-400 hover:text-blue-500"
+            "flex flex-col items-center justify-center p-3 transition-all duration-300 wobbly-border",
+            isActive 
+              ? "bg-primary-container text-on-primary rounded-[2.2rem_1rem_2rem_1.5rem] shadow-[4px_4px_0_0_#9720ab] -rotate-3 scale-110" 
+              : "text-on-surface opacity-60 hover:scale-110 hover:-rotate-3 hover:opacity-100"
           )
         }
       >
-        <MessageCircle size={24} />
+        <MessageCircle size={28} strokeWidth={2} />
       </NavLink>
       
       <NavLink
         to="/profile"
         className={({ isActive }) =>
           cn(
-            "p-2 rounded-full transition-all duration-300",
-            isActive ? "bg-blue-500 text-white scale-110 shadow-lg" : "text-gray-400 hover:text-blue-500"
+            "flex flex-col items-center justify-center p-3 transition-all duration-300 wobbly-border",
+            isActive 
+              ? "bg-primary-container text-on-primary rounded-[1rem_2.2rem_1.5rem_2rem] shadow-[4px_4px_0_0_#9720ab] rotate-3 scale-110" 
+              : "text-on-surface opacity-60 hover:scale-110 hover:-rotate-3 hover:opacity-100"
           )
         }
       >
-        <User size={24} />
+        <User size={28} strokeWidth={2} />
       </NavLink>
     </nav>
   );

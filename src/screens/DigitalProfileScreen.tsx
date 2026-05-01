@@ -27,7 +27,7 @@ export const DigitalProfileScreen: React.FC<DigitalProfileScreenProps> = ({ onCo
   };
 
   return (
-    <div className="flex-1 flex flex-col p-8 bg-white min-h-screen">
+    <div className="flex-1 flex flex-col pt-8 bg-transparent min-h-screen relative z-10 w-full max-w-md mx-auto px-4">
       <AnimatePresence mode="wait">
         {!analysisResult ? (
           <motion.div 
@@ -35,21 +35,18 @@ export const DigitalProfileScreen: React.FC<DigitalProfileScreenProps> = ({ onCo
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="flex-1 flex flex-col"
+            className="flex-1 flex flex-col justify-center"
           >
-            <div className="mt-12 mb-12">
-              <div className="w-16 h-16 bg-blue-500 rounded-[22px] flex items-center justify-center mb-6 shadow-xl shadow-blue-500/20">
-                <Sparkles className="text-white" size={32} />
-              </div>
-              <h1 className="text-4xl font-bold text-gray-900 tracking-tight mb-3">ADN Digital</h1>
-              <p className="text-gray-500 text-lg">Conectamos con tu presencia digital para curar tu experiencia Zenith.</p>
+            <div className="mt-8 mb-8">
+              <h1 className="font-headline text-5xl font-black italic tracking-tighter text-on-surface leading-tight mb-3">ADN Digital</h1>
+              <p className="text-on-surface-variant font-medium">Conectamos con tu presencia digital para curar tu experiencia Reel2Real.</p>
             </div>
 
             <div className="space-y-6">
               <div className="space-y-2">
-                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-4">Instagram</label>
+                <label className="font-label text-xs font-bold text-primary uppercase tracking-widest ml-4">Instagram</label>
                 <div className="relative">
-                  <div className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400">
+                  <div className="absolute left-5 top-1/2 -translate-y-1/2 text-primary">
                     <Instagram size={18} />
                   </div>
                   <input 
@@ -57,15 +54,15 @@ export const DigitalProfileScreen: React.FC<DigitalProfileScreenProps> = ({ onCo
                     placeholder="@usuario"
                     value={handles.instagram}
                     onChange={(e) => setHandles({ ...handles, instagram: e.target.value })}
-                    className="w-full pl-14 pr-6 py-5 bg-gray-50 rounded-[25px] border-none focus:ring-2 focus:ring-blue-500/20 outline-none transition-all text-gray-900 placeholder:text-gray-300"
+                    className="w-full pl-14 pr-6 py-5 bg-surface-container-lowest border-2 border-outline-variant wobbly-border focus:border-primary focus:ring-0 outline-none transition-all text-on-surface font-medium placeholder:text-outline-variant/60"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-4">Twitter / X</label>
+                <label className="font-label text-xs font-bold text-primary uppercase tracking-widest ml-4">Twitter / X</label>
                 <div className="relative">
-                  <div className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400">
+                  <div className="absolute left-5 top-1/2 -translate-y-1/2 text-primary">
                     <Twitter size={18} />
                   </div>
                   <input 
@@ -73,15 +70,15 @@ export const DigitalProfileScreen: React.FC<DigitalProfileScreenProps> = ({ onCo
                     placeholder="@usuario"
                     value={handles.twitter}
                     onChange={(e) => setHandles({ ...handles, twitter: e.target.value })}
-                    className="w-full pl-14 pr-6 py-5 bg-gray-50 rounded-[25px] border-none focus:ring-2 focus:ring-blue-500/20 outline-none transition-all text-gray-900 placeholder:text-gray-300"
+                    className="w-full pl-14 pr-6 py-5 bg-surface-container-lowest border-2 border-outline-variant wobbly-border focus:border-primary focus:ring-0 outline-none transition-all text-on-surface font-medium placeholder:text-outline-variant/60"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-4">LinkedIn</label>
+                <label className="font-label text-xs font-bold text-primary uppercase tracking-widest ml-4">LinkedIn</label>
                 <div className="relative">
-                  <div className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400">
+                  <div className="absolute left-5 top-1/2 -translate-y-1/2 text-primary">
                     <Linkedin size={18} />
                   </div>
                   <input 
@@ -89,39 +86,40 @@ export const DigitalProfileScreen: React.FC<DigitalProfileScreenProps> = ({ onCo
                     placeholder="url-perfil"
                     value={handles.linkedin}
                     onChange={(e) => setHandles({ ...handles, linkedin: e.target.value })}
-                    className="w-full pl-14 pr-6 py-5 bg-gray-50 rounded-[25px] border-none focus:ring-2 focus:ring-blue-500/20 outline-none transition-all text-gray-900 placeholder:text-gray-300"
+                    className="w-full pl-14 pr-6 py-5 bg-surface-container-lowest border-2 border-outline-variant wobbly-border focus:border-primary focus:ring-0 outline-none transition-all text-on-surface font-medium placeholder:text-outline-variant/60"
                   />
                 </div>
               </div>
             </div>
 
-            <div className="mt-auto pb-8">
+            <div className="mt-8 pb-8 space-y-4">
               <button 
                 disabled={isAnalyzing || (!handles.instagram && !handles.twitter && !handles.linkedin)}
                 onClick={handleAnalyze}
                 className={cn(
-                  "w-full py-5 rounded-full font-bold text-lg transition-all flex items-center justify-center gap-3 shadow-xl",
+                  "w-full py-5 rounded-xl font-headline font-bold text-lg transition-all flex items-center justify-center gap-3 wobbly-border",
                   isAnalyzing || (!handles.instagram && !handles.twitter && !handles.linkedin)
-                    ? "bg-gray-100 text-gray-400"
-                    : "bg-gray-900 text-white hover:scale-[1.02] active:scale-[0.98]"
+                    ? "bg-surface-container text-on-surface-variant/50 cursor-not-allowed"
+                    : "bg-primary text-on-primary shadow-[4px_4px_0px_#450051] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
                 )}
               >
                 {isAnalyzing ? (
                   <>
                     <Loader2 className="animate-spin" size={20} />
-                    Analizando...
+                    Analizando perfil...
                   </>
                 ) : (
                   <>
                     <Search size={20} />
-                    Analizar Perfil
+                    Curar Mi Experiencia
                   </>
                 )}
               </button>
               <button 
                 onClick={() => onComplete({ intereses: [], hashtags: [], handles: {} })}
-                className="w-full py-4 text-gray-400 text-sm font-medium mt-2"
+                className="w-full py-3 mt-4 font-headline text-base font-bold text-tertiary bg-transparent border-2 border-tertiary wobbly-border transition-all hover:bg-tertiary/5 relative group"
               >
+                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-0 group-hover:w-16 h-[2px] bg-tertiary transition-all duration-300"></div>
                 Omitir por ahora
               </button>
             </div>
@@ -131,19 +129,19 @@ export const DigitalProfileScreen: React.FC<DigitalProfileScreenProps> = ({ onCo
             key="result"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="flex-1 flex flex-col"
+            className="flex-1 flex flex-col justify-center"
           >
-            <div className="mt-12 mb-8">
-              <div className="w-16 h-16 bg-green-500 rounded-[22px] flex items-center justify-center mb-6 shadow-xl shadow-green-500/20">
-                <CheckCircle2 className="text-white" size={32} />
+            <div className="mt-8 mb-8">
+              <div className="w-16 h-16 bg-primary rounded-2xl wobbly-border flex items-center justify-center mb-6 shadow-[4px_4px_0px_#ea73fb]">
+                <CheckCircle2 className="text-on-primary" size={32} />
               </div>
-              <h1 className="text-4xl font-bold text-gray-900 tracking-tight mb-3">Análisis Completado</h1>
-              <p className="text-gray-500 text-lg">Gemini ha identificado tu esencia digital.</p>
+              <h1 className="font-headline text-4xl font-bold text-on-surface mb-2 tracking-tight">Análisis Completado</h1>
+              <p className="text-on-surface-variant font-medium">Gemini ha identificado tu esencia digital.</p>
             </div>
 
             <div className="space-y-8">
               <div className="space-y-4">
-                <h3 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Intereses Detectados</h3>
+                <h3 className="font-label text-xs font-bold text-primary uppercase tracking-widest">Intereses Detectados</h3>
                 <div className="flex flex-wrap gap-2">
                   {analysisResult.intereses.map((item, i) => (
                     <motion.span 
@@ -151,7 +149,7 @@ export const DigitalProfileScreen: React.FC<DigitalProfileScreenProps> = ({ onCo
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.05 }}
                       key={i} 
-                      className="px-4 py-2 bg-blue-50 text-blue-600 rounded-full text-sm font-bold"
+                      className="px-4 py-2 bg-primary/10 text-primary border-2 border-primary rounded-full text-sm font-bold shadow-[2px_2px_0px_#ea73fb] translate-y-[-1px] translate-x-[-1px]"
                     >
                       {item}
                     </motion.span>
@@ -160,7 +158,7 @@ export const DigitalProfileScreen: React.FC<DigitalProfileScreenProps> = ({ onCo
               </div>
 
               <div className="space-y-4">
-                <h3 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Hashtags Clave</h3>
+                <h3 className="font-label text-xs font-bold text-primary uppercase tracking-widest">Hashtags Clave</h3>
                 <div className="flex flex-wrap gap-2">
                   {analysisResult.hashtags.map((tag, i) => (
                     <motion.span 
@@ -168,7 +166,7 @@ export const DigitalProfileScreen: React.FC<DigitalProfileScreenProps> = ({ onCo
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.3 + i * 0.05 }}
                       key={i} 
-                      className="px-4 py-2 bg-gray-50 text-gray-500 rounded-full text-sm font-medium border border-gray-100"
+                      className="px-4 py-2 bg-surface-container-lowest text-on-surface-variant border-2 border-outline-variant rounded-full text-sm font-bold"
                     >
                       {tag.startsWith('#') ? tag : `#${tag}`}
                     </motion.span>
@@ -177,10 +175,10 @@ export const DigitalProfileScreen: React.FC<DigitalProfileScreenProps> = ({ onCo
               </div>
             </div>
 
-            <div className="mt-auto pb-8">
+            <div className="mt-8 pb-8">
               <button 
                 onClick={() => onComplete({ ...analysisResult, handles })}
-                className="w-full py-5 bg-gray-900 text-white rounded-full font-bold text-lg shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                className="w-full py-5 rounded-xl font-headline font-bold text-lg transition-all flex items-center justify-center gap-2 bg-primary text-on-primary shadow-[4px_4px_0px_#450051] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none wobbly-border"
               >
                 Confirmar y Continuar
                 <ChevronRight size={20} />

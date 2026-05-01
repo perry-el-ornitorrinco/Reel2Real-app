@@ -109,28 +109,28 @@ export default function UserProfile() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
-      </div>
+    <div className="min-h-screen flex items-center justify-center bg-transparent mt-20">
+      <div className="w-8 h-8 border-4 border-[#FF6B00] border-t-transparent rounded-full animate-spin" />
+    </div>
     );
   }
 
   if (!userData) return null;
 
   return (
-    <div className="min-h-screen bg-white pb-32">
+    <div className="min-h-screen bg-transparent text-on-surface pb-32">
       {/* Header */}
-      <header className="p-6 flex items-center justify-between sticky top-0 bg-white/80 backdrop-blur-md z-10">
+      <header className="p-6 flex items-center justify-between sticky top-0 bg-surface/80 backdrop-blur-md z-10">
         <button 
           onClick={() => navigate(-1)}
-          className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+          className="p-2 text-white hover:bg-white/10 rounded-full transition-colors"
         >
           <ChevronLeft size={24} />
         </button>
-        <h1 className="text-xl font-bold text-gray-900">Mi Perfil</h1>
+        <h1 className="text-xl font-extrabold text-white tracking-tight">Mi Perfil</h1>
         <button 
           onClick={handleLogout}
-          className="p-2 text-red-500 hover:bg-red-50 rounded-full transition-colors"
+          className="p-2 text-red-500 hover:bg-red-500/10 rounded-full transition-colors"
         >
           <LogOut size={20} />
         </button>
@@ -138,25 +138,25 @@ export default function UserProfile() {
 
       <div className="p-6 space-y-8">
         {/* User Info Card */}
-        <div className="bg-gray-50 rounded-[30px] p-8 flex flex-col items-center text-center">
-          <div className="w-24 h-24 bg-blue-500 rounded-[30px] flex items-center justify-center mb-4 shadow-xl shadow-blue-500/20">
+        <div className="bg-white/5 border border-white/10 rounded-[30px] p-8 flex flex-col items-center text-center">
+          <div className="w-24 h-24 bg-[#FF6B00] rounded-[30px] flex items-center justify-center mb-4 shadow-[0_8px_30px_rgba(255,107,0,0.4)]">
             <UserIcon size={40} className="text-white" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900">{userData.email.split('@')[0]}</h2>
+          <h2 className="text-2xl font-extrabold text-white">{userData.email.split('@')[0]}</h2>
           <p className="text-gray-400 text-sm flex items-center gap-2 mt-1">
             <Mail size={14} />
             {userData.email}
           </p>
-          <div className="mt-4 px-4 py-1.5 bg-blue-50 text-blue-500 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-2">
+          <div className="mt-4 px-4 py-1.5 bg-[#FF6B00]/10 text-[#FF6B00] border border-[#FF6B00]/20 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-2">
             <Shield size={12} />
             {userData.role === 'user' ? 'Usuario Explorador' : 'Empresa / Organizador'}
           </div>
 
           {userData.digitalHandles && (userData.digitalHandles.instagram || userData.digitalHandles.twitter || userData.digitalHandles.linkedin) && (
             <div className="mt-6 flex gap-4 text-gray-400">
-              {userData.digitalHandles.instagram && <Instagram size={18} className="hover:text-blue-500 transition-colors" />}
-              {userData.digitalHandles.twitter && <Twitter size={18} className="hover:text-blue-500 transition-colors" />}
-              {userData.digitalHandles.linkedin && <Linkedin size={18} className="hover:text-blue-500 transition-colors" />}
+              {userData.digitalHandles.instagram && <Instagram size={18} className="hover:text-[#FF6B00] transition-colors" />}
+              {userData.digitalHandles.twitter && <Twitter size={18} className="hover:text-[#FF6B00] transition-colors" />}
+              {userData.digitalHandles.linkedin && <Linkedin size={18} className="hover:text-[#FF6B00] transition-colors" />}
             </div>
           )}
         </div>
@@ -165,12 +165,12 @@ export default function UserProfile() {
         <div className="space-y-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Tag size={20} className="text-blue-500" />
-              <h3 className="text-lg font-bold text-gray-900">Mis Intereses</h3>
+              <Tag size={20} className="text-[#FF6B00]" />
+              <h3 className="text-lg font-extrabold text-white">Mis Intereses</h3>
             </div>
             <span className={cn(
-              "text-xs font-bold px-3 py-1 rounded-full",
-              selectedTags.length >= 5 ? "bg-green-50 text-green-500" : "bg-orange-50 text-orange-500"
+              "text-xs font-bold px-3 py-1 rounded-full border",
+              selectedTags.length >= 5 ? "bg-green-500/10 text-green-500 border-green-500/20" : "bg-[#FF6B00]/10 text-[#FF6B00] border-[#FF6B00]/20"
             )}>
               {selectedTags.length}/5 Mínimo
             </span>
@@ -187,8 +187,8 @@ export default function UserProfile() {
                   className={cn(
                     "px-4 py-2 rounded-full text-sm font-medium transition-all border",
                     isSelected 
-                      ? "bg-blue-500 border-blue-500 text-white shadow-md shadow-blue-500/20" 
-                      : "bg-white border-gray-100 text-gray-400 hover:border-blue-200"
+                      ? "bg-[#FF6B00] border-[#FF6B00] text-white shadow-[0_4px_14px_rgba(255,107,0,0.4)]" 
+                      : "bg-white/5 border-white/10 text-gray-400 hover:border-white/30"
                   )}
                 >
                   {tag}
@@ -205,8 +205,8 @@ export default function UserProfile() {
           className={cn(
             "w-full py-5 rounded-full font-bold text-lg transition-all flex items-center justify-center gap-3",
             selectedTags.length >= 5 
-              ? "bg-gray-900 text-white shadow-xl hover:scale-[1.02] active:scale-[0.98]" 
-              : "bg-gray-100 text-gray-400 cursor-not-allowed"
+              ? "bg-white text-black shadow-[0_4px_20px_rgba(255,255,255,0.2)] hover:scale-[1.02] active:scale-[0.98]" 
+              : "bg-white/10 text-gray-500 cursor-not-allowed border border-white/5"
           )}
         >
           {saving ? (
@@ -222,7 +222,7 @@ export default function UserProfile() {
         {/* History Link */}
         <button 
           onClick={() => navigate('/attended-events')}
-          className="w-full py-5 rounded-[25px] bg-blue-50 text-blue-600 font-bold flex items-center justify-center gap-3 hover:bg-blue-100 transition-all"
+          className="w-full py-5 rounded-[25px] bg-[#FF6B00]/10 text-[#FF6B00] border border-[#FF6B00]/20 font-bold flex items-center justify-center gap-3 hover:bg-[#FF6B00]/20 transition-all"
         >
           <History size={20} />
           Ver Historial de Eventos
@@ -231,8 +231,8 @@ export default function UserProfile() {
         {/* Interested Events Section */}
         <div className="space-y-6 pt-4">
           <div className="flex items-center gap-2">
-            <Sparkles size={20} className="text-blue-500" />
-            <h3 className="text-lg font-bold text-gray-900">Mis Próximos Planes</h3>
+            <Sparkles size={20} className="text-[#FF6B00]" />
+            <h3 className="text-lg font-extrabold text-white">Mis Próximos Planes</h3>
           </div>
 
           <div className="space-y-4">
@@ -242,7 +242,7 @@ export default function UserProfile() {
                   key={event.id}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  className="bg-gray-50 p-4 rounded-[25px] flex items-center gap-4 border border-transparent hover:border-blue-100 transition-all"
+                  className="bg-white/5 border border-white/10 p-4 rounded-[25px] flex items-center gap-4 hover:border-white/30 transition-all"
                 >
                   <div className="w-16 h-16 rounded-2xl overflow-hidden shrink-0">
                     <img 
@@ -253,7 +253,7 @@ export default function UserProfile() {
                     />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h4 className="font-bold text-gray-900 truncate">{event.titulo}</h4>
+                    <h4 className="font-bold text-white truncate">{event.titulo}</h4>
                     <div className="flex items-center gap-3 mt-1">
                       <div className="flex items-center gap-1 text-gray-400 text-[10px] font-bold uppercase tracking-wider">
                         <Calendar size={12} />
@@ -265,13 +265,13 @@ export default function UserProfile() {
                       </div>
                     </div>
                   </div>
-                  <div className="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-[10px] font-black uppercase">
+                  <div className="px-3 py-1 bg-[#FF6B00]/20 text-[#FF6B00] border border-[#FF6B00]/20 rounded-full text-[10px] font-black uppercase">
                     Match
                   </div>
                 </motion.div>
               ))
             ) : (
-              <div className="bg-gray-50 p-8 rounded-[30px] text-center">
+              <div className="bg-white/5 border border-white/10 p-8 rounded-[30px] text-center">
                 <p className="text-gray-400 text-sm">Aún no tienes planes confirmados.</p>
               </div>
             )}
@@ -281,8 +281,8 @@ export default function UserProfile() {
         {/* Saved Events Section */}
         <div className="space-y-6 pt-4">
           <div className="flex items-center gap-2">
-            <Bookmark size={20} className="text-blue-500" />
-            <h3 className="text-lg font-bold text-gray-900">Guardados para después</h3>
+            <Bookmark size={20} className="text-[#FF6B00]" />
+            <h3 className="text-lg font-extrabold text-white">Guardados para después</h3>
           </div>
 
           <div className="space-y-4">
@@ -292,7 +292,7 @@ export default function UserProfile() {
                   key={event.id}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  className="bg-gray-50 p-4 rounded-[25px] flex items-center gap-4 border border-transparent hover:border-blue-100 transition-all"
+                  className="bg-white/5 border border-white/10 p-4 rounded-[25px] flex items-center gap-4 hover:border-white/30 transition-all"
                 >
                   <div className="w-16 h-16 rounded-2xl overflow-hidden shrink-0">
                     <img 
@@ -303,7 +303,7 @@ export default function UserProfile() {
                     />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h4 className="font-bold text-gray-900 truncate">{event.titulo}</h4>
+                    <h4 className="font-bold text-white truncate">{event.titulo}</h4>
                     <div className="flex items-center gap-3 mt-1">
                       <div className="flex items-center gap-1 text-gray-400 text-[10px] font-bold uppercase tracking-wider">
                         <Calendar size={12} />
@@ -317,14 +317,14 @@ export default function UserProfile() {
                   </div>
                   <button 
                     onClick={() => navigate('/')}
-                    className="p-2 text-blue-500 hover:bg-blue-50 rounded-full transition-colors"
+                    className="p-2 text-[#FF6B00] hover:bg-[#FF6B00]/10 rounded-full transition-colors"
                   >
                     <ChevronLeft className="rotate-180" size={20} />
                   </button>
                 </motion.div>
               ))
             ) : (
-              <div className="bg-gray-50 p-8 rounded-[30px] text-center">
+              <div className="bg-white/5 border border-white/10 p-8 rounded-[30px] text-center">
                 <p className="text-gray-400 text-sm">No tienes eventos guardados.</p>
               </div>
             )}

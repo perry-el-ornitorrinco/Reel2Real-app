@@ -16,11 +16,14 @@ export function calculateJaccardSimilarity(arr1: string[], arr2: string[]): numb
   return intersection.size / union.size;
 }
 
-export async function generateHomePlans(interests: string[]) {
-  const prompt = `Genera 3 planes creativos para hacer en casa basados en estos intereses: ${interests.join(", ")}. Devuelve formato JSON con título, materiales y paso a paso.`;
+export async function generateProactivePlans(interests: string[], lat: number, lng: number) {
+  const prompt = `Genera 3 planes autogestionados de exterior (en la ciudad o naturaleza, NO en casa) basados en estos intereses: ${interests.join(", ")}.
+  Los planes deben animar al usuario a salir (ej: Ruta fotográfica por el barrio, Reto de dibujo en un parque).
+  Devuelve un JSON con el esquema exacto de un Evento (título, descripción, categoría, y ubicacion_gps con coordenadas cercanas a lat: ${lat}, lng: ${lng}).
+  Incluye una 'foto_url' descriptiva abstracta de Unsplash (ej: https://images.unsplash.com/photo-1542204165-65bf26472b9b?auto=format&fit=crop&w=800&q=80).`;
   
   const response = await ai.models.generateContent({
-    model: "gemini-3-flash-preview",
+    model: "gemini-2.5-flash",
     contents: prompt,
     config: {
       responseMimeType: "application/json",
@@ -29,11 +32,24 @@ export async function generateHomePlans(interests: string[]) {
         items: {
           type: Type.OBJECT,
           properties: {
+            id: { type: Type.STRING },
             titulo: { type: Type.STRING },
-            materiales: { type: Type.ARRAY, items: { type: Type.STRING } },
-            paso_a_paso: { type: Type.ARRAY, items: { type: Type.STRING } }
+            descripcion: { type: Type.STRING },
+            foto_url: { type: Type.STRING },
+            categoria: { type: Type.STRING },
+            ubicacion_gps: { 
+              type: Type.OBJECT,
+              properties: {
+                lat: { type: Type.NUMBER },
+                lng: { type: Type.NUMBER }
+              }
+            },
+            aforo_max: { type: Type.NUMBER },
+            asistentes_actuales: { type: Type.ARRAY, items: { type: Type.STRING } },
+            isPremium: { type: Type.BOOLEAN },
+            fecha: { type: Type.STRING }
           },
-          required: ["titulo", "materiales", "paso_a_paso"]
+          required: ["id", "titulo", "descripcion", "foto_url", "categoria", "ubicacion_gps", "aforo_max", "asistentes_actuales", "isPremium", "fecha"]
         }
       }
     }
@@ -49,7 +65,7 @@ export async function analyzeDigitalProfile(handles: { instagram?: string; twitt
   Sé creativo y premium en la selección.`;
 
   const response = await ai.models.generateContent({
-    model: "gemini-3-flash-preview",
+    model: "gemini-2.5-flash",
     contents: prompt,
     config: {
       responseMimeType: "application/json",
