@@ -94,8 +94,7 @@ service cloud.firestore {
     match /users/{userId} {
       allow read: if isAuthenticated();
       allow create: if isOwner(userId) && isValidUser(request.resource.data);
-      allow update: if isOwner(userId) && 
-                      (request.resource.data.get('role', 'user') == resource.data.get('role', 'user') || isAdmin());
+      allow update: if isOwner(userId);
     }
 
     match /events/{eventId} {

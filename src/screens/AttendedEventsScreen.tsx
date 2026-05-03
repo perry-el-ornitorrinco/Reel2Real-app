@@ -45,7 +45,13 @@ export const AttendedEventsScreen: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-transparent text-on-surface pb-32">
+    <motion.div 
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -20 }}
+      transition={{ ease: "circOut", duration: 0.3 }}
+      className="min-h-screen bg-transparent text-on-surface pb-32"
+    >
       {/* Header */}
       <header className="p-6 flex items-center gap-4 sticky top-0 bg-surface/80 backdrop-blur-md z-10 border-b-2 border-outline-variant border-dashed">
         <button 
@@ -140,6 +146,6 @@ export const AttendedEventsScreen: React.FC = () => {
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

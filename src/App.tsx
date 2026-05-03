@@ -1,28 +1,62 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import { DiscoverScreen } from './screens/DiscoverScreen';
 import { BusinessDashboard } from './screens/BusinessDashboard';
 import { MatchChat } from './screens/MatchChat';
 import { AuthScreen } from './screens/AuthScreen';
 import UserProfile from './screens/UserProfile';
 import { AttendedEventsScreen } from './screens/AttendedEventsScreen';
+import { SavedEvents } from './screens/SavedEvents';
 import { GlassNavBar } from './components/GlassNavBar';
 import { NotificationCenter } from './components/NotificationCenter';
 import { notificationService } from './services/NotificationService';
-import { auth } from './services/firebase';
-import { UserRole } from './types';
+import { auth, db } from './services/firebase';
+import { doc, getDoc } from 'firebase/firestore';
+import { UserRole, User } from './types';
 import { cn } from './lib/utils';
+
+function MainRoutes({ userRole }: { userRole: UserRole }) {
+  const location = useLocation();
+  return (
+    <AnimatePresence mode="wait">
+      {/* @ts-ignore */}
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={userRole === 'user' ? <DiscoverScreen /> : <Navigate to="/dashboard" />} />
+        <Route path="/dashboard" element={userRole === 'business' ? <BusinessDashboard /> : <Navigate to="/" />} />
+        <Route path="/matches" element={<MatchChat />} />
+        <Route path="/saved" element={<SavedEvents />} />
+        <Route path="/profile" element={<UserProfile />} />
+        <Route path="/attended-events" element={<AttendedEventsScreen />} />
+      </Routes>
+    </AnimatePresence>
+  );
+}
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [userRole, setUserRole] = useState<UserRole>('user');
-  const [viewMode, setViewMode] = useState<UserRole>('user');
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setIsAuthenticated(!!user);
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
-        notificationService.startReminderCheck(15); // Check every 15 mins
+        notificationService.startReminderCheck(15);
+        try {
+          const userDoc = await getDoc(doc(db, 'users', user.uid));
+          if (userDoc.exists()) {
+            const data = userDoc.data() as User;
+            setUserRole(data.role || 'user');
+            setIsAuthenticated(true);
+          } else {
+            console.warn("User authenticated but profile document does not exist. Redirecting to onboarding...");
+            setIsAuthenticated(false);
+          }
+        } catch (error) {
+          console.error("Error fetching user role", error);
+          setIsAuthenticated(false);
+        }
+      } else {
+        setIsAuthenticated(false);
       }
     });
     
@@ -57,37 +91,9 @@ export default function App() {
           <AuthScreen onAuthComplete={() => setIsAuthenticated(true)} />
         ) : (
           <>
-            {/* Segmented Control for Admins/Multi-role */}
-            <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 bg-surface-container-low/80 backdrop-blur-xl p-1 rounded-2xl flex gap-1 border-2 border-outline-variant/30 wobbly-border">
-              <button 
-                onClick={() => setViewMode('user')}
-                className={cn(
-                  "px-4 py-2 rounded-xl text-xs font-headline font-bold uppercase tracking-wider transition-all",
-                  viewMode === 'user' ? "bg-primary text-on-primary shadow-[2px_2px_0px_#ea73fb] translate-y-[-1px] translate-x-[-1px] wobbly-border" : "text-on-surface-variant hover:text-primary"
-                )}
-              >
-                Explorar
-              </button>
-              <button 
-                onClick={() => setViewMode('business')}
-                className={cn(
-                  "px-4 py-2 rounded-xl text-xs font-headline font-bold uppercase tracking-wider transition-all",
-                  viewMode === 'business' ? "bg-primary text-on-primary shadow-[2px_2px_0px_#ea73fb] translate-y-[-1px] translate-x-[-1px] wobbly-border" : "text-on-surface-variant hover:text-primary"
-                )}
-              >
-                Gestión
-              </button>
-            </div>
-
-            <Routes>
-              <Route path="/" element={viewMode === 'user' ? <DiscoverScreen /> : <Navigate to="/dashboard" />} />
-              <Route path="/dashboard" element={<BusinessDashboard />} />
-              <Route path="/matches" element={<MatchChat />} />
-              <Route path="/profile" element={<UserProfile />} />
-              <Route path="/attended-events" element={<AttendedEventsScreen />} />
-            </Routes>
+            <MainRoutes userRole={userRole} />
             <NotificationCenter />
-            <GlassNavBar />
+            <GlassNavBar userRole={userRole} />
           </>
         )}
       </div>

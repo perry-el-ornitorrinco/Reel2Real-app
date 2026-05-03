@@ -29,6 +29,13 @@ export interface User {
   };
   savedEvents?: string[];
   ods_affinity?: string[];
+  digitalHandles?: DigitalHandle;
+  monitoredApps?: {
+    instagram?: boolean;
+    tiktok?: boolean;
+    twitter?: boolean;
+    facebook?: boolean;
+  };
 }
 
 export interface UserPrivateData {

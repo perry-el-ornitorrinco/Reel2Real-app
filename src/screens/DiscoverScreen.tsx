@@ -232,7 +232,13 @@ export const DiscoverScreen: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-transparent p-6 pb-32">
+    <motion.div 
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: 20 }}
+      transition={{ ease: "circOut", duration: 0.3 }}
+      className="min-h-screen bg-transparent p-6 pb-32"
+    >
       <header className="flex justify-between items-center mb-8">
         <div>
           <h2 className="font-headline text-5xl font-black italic tracking-tighter text-on-surface">Descubrir</h2>
@@ -764,6 +770,6 @@ export const DiscoverScreen: React.FC = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 };
